@@ -31,11 +31,15 @@ class Popup {
         let style = localStorage.style, 
             a = this.data;
 
-        if(style == 'MLA')
-            this.value = `${a.lastName}, ${a.firstName}. "${a.title}." <i>${a.source}</i>. ${a.date}. ${a.url}. Accessed ${a.access}.`;
+        if(style == 'MLA'){
+            let authors = a.authors.map(n => n.join(' ')).join(', ');
+            this.value = `${authors}. "${a.title}." <i>${a.source}</i>. ${a.date}. ${a.url}. Accessed ${a.access}.`;
+        }
 
-        else
-            this.value = `${a.lastName}, ${a.firstName[0]}. (${a.date}). ${a.title}. <i>${a.source}</i>. Retrieved from ${a.url}`;
+        else{
+            let authors = a.authors.join(', ');
+            this.value = `${authors}. (${a.date}). ${a.title}. <i>${a.source}</i>. Retrieved from ${a.url}`;
+        }
 
         this.value = this.value.replace(/\s+/g,' ').replace(/\s\./g,'.');
         $('.citation-body').html(this.value);
