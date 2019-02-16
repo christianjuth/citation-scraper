@@ -2,15 +2,15 @@ let parse = () => {
 
 
 	// Extract Author
-	let author = $('[rel="author"]').first().text();
-	author = author || $("p, div").filter(function() {
+	let author = $('[rel="author"],[id*="author"],[class*="author"],.author').first().text();
+	author = author || $("p, div, span").filter(function() {
 		let text = $(this).text();
 		text = text.replace(/(^\s+|\n|\s+$)/g,'').replace(/\s+/g,' ');
 		return /^\s*By [A-Z].+/.test(text);
 	}).sort((a,b) => {
 		let out = 0;
-		if($(a).has(b)) out++;
-		else if($(b).has(a)) out--;
+		if($(a).has(b)) out--;
+		else if($(b).has(a)) out++;
 		return out;
 	}).first().text();
 
@@ -18,7 +18,7 @@ let parse = () => {
 		author = $('.byline').text();
 	}
 
-	author = author.replace(/(^\s+|\n|\s+$)/g,'').replace(/(^By\s+|\s*(\s\W\s).+$)/g, '').replace(/\s+/g,' ').split(/\s+/);
+	author = author.replace(/(^\s+|\n|\s+$)/g,'').replace(/(^By\s+|\s*(\s\W\s|@).+$)/g, '').replace(/\s+/g,' ').split(/\s+/);
 
 
 
@@ -42,7 +42,7 @@ let parse = () => {
 	if(!source){
 		source = location.host.replace(/\.[^\.]+$/,'').split('.').pop();
 	}
-	title = $('h1').first().text();// title[0];
+	title = $('h1').first().text() || title[0];
 
 
 
