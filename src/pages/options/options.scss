@@ -1,0 +1,134 @@
+body{
+    color: #fff;
+}
+
+.dev-menu{
+    display: none;
+}
+body.dev .dev-menu{
+    display: block;
+}
+
+#page{
+    width: 723px;
+    margin: 60px auto;
+}
+
+#page > section{
+    margin: 40px 0 50px;
+}
+
+
+.option-grp{
+    position: relative;
+    margin: 0 0 12px;
+}
+
+.option-grp *:not(h3){
+    float: right;
+}
+
+.option-grp *{
+    position: relative;
+    margin: 0;
+    font-weight: 300;
+    display: inline-block;
+    text-shadow: 0px 0px 6px rgba(0,0,0,.15);
+}
+
+.mac,
+.windows{
+    display: none;
+}
+
+#right-container,
+#left-container{
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+}
+
+#right-container{
+    width: 300px;
+    padding-left: 10px;
+    padding-top: 7px;
+}
+
+#left-container{
+    width: 422px;
+    height: 303px;
+}
+
+
+/*calculator css------------------------------>*/
+
+.calculator{
+    float: right;
+    width: 440px;
+    transform: scale(0.92);
+
+    display: inline-block;
+    position: relative;
+
+    &, 
+    &.screenOnly,
+    &.scientific{
+        padding: 16px;
+    }
+
+    #number-container,
+    #scientific-1{
+        display: inline-block;
+    }
+
+    .calculator-mask{
+        position: absolute;
+        background-color: rgba(129, 129, 138, 0.76);
+        left: 0;
+        z-index: 1000;
+        font-size: 17px;
+        font-weight: 300;
+        text-align: center;
+        opacity: 0.9;
+        
+        &:before{
+            display: block;
+            background: rgba(0, 0, 0, 0.26);
+            height: 100%;
+            cursor: pointer;
+        }
+    }
+
+    &:not(.scientific) .calculator-mask{
+        top: 0;
+        height: 100%;
+        width: 214px;
+
+        &:before{
+            content: 'Scientific mode to enable';
+            line-height: 286px;
+        }
+    }
+
+    &.screenOnly .calculator-mask{
+        top: 82px;
+        height: 225px;
+        width: 440px;
+
+        &:before{
+            content: 'Scientific or Normal mode to enable';
+            line-height: 219px;
+        }
+    }
+
+    &.screenOnly section,
+    &:not(.scientific) #scientific-1,
+    &:not(.scientific) #scientific-2,
+    &:not(.scientific) #rad-deg{
+        filter: blur(2px);
+    }
+
+    &.screenOnly .text #rad-deg{
+        opacity: 0;
+    }
+}
