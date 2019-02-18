@@ -41,7 +41,9 @@ class Popup {
             this.value = `${authors}. (${a.date}). ${a.title}. <i>${a.source}</i>. Retrieved from ${a.url}`;
         }
 
-        this.value = this.value.replace(/\s+/g,' ').replace(/\s\./g,'.');
+
+        // title account for all forms of end punctuation
+        this.value = this.value.replace(/\s+/g,' ').replace(/\s*\.+/g,'.');
         $('.citation-body').html(this.value);
     }
 

@@ -16,56 +16,72 @@ let parse = () => {
 		'[class*="author"] .name',
 		'[class*="author"]',
 		'[ng-bind-html*="author"]', // angularjs
-		'[ng-if*="author"]' // angularjs
+		'[ng-if*="author"]', // angularjs
+		'[class*="Contributor"], [class*="contributor"]',
+		'[href*="author"]',
+		'[href*="editor"]',
 	];
 
-	let author = '';
+	let bans = [
+		'[class*=title]' // job title
+	]
 
 	let selection;
 	selectors.forEach(selector => {
-		let $selector = $(selector+':visible');
+		let $selector = $(selector+':visible').not(bans.join(','));
 		if(!selection && $selector.length > 0)
 			selection = $selector;
 	});
 
-	if(selection.children().length <= 1){
-		selection.each(function() {
-			let text = $(this).text();
-
-			// slip over by
-			if(!/^\s*by\s*$/i.test(text))
-				author += text+'_';
+	// if selection fails look for
+	// anything starting with by
+	if(!selection){
+		selection = $('*').filter(function() {
+			return /^by\s+.+$/i.test($(this).text());
 		});
 	}
 
-	else{
-		selection.find('*:not(time, :has(*)):visible').each(function() {
+	let extractAuthor = (sel) => {
+		let out = '',
+			distances = [];
+		sel
+		.each(function() {
+			distances.push($(this)[0].getBoundingClientRect().top + $(window)['scrollTop']());
+		})
+		.filter(function () {
+			return $(this)[0].getBoundingClientRect().top + $(window)['scrollTop']() < Math.min(...distances) + 500;
+		})
+		.each(function() {
 			let text = $(this).text();
 			// slip over by
-			if(!/^\s*(by)\s*$/i.test(text))
-				author += text+'_';
+			out += text+'_';
 		});
+		// sqush to single line
+		out = out.replace(/(^\s+|\n|\s+$)/g,' ');
+		//cleanup
+		out = out.replace(/(^_|^\s*by(:|)\s+|^\s*|_+$|phd)/ig, '');
+		return out;
 	}
+	
+	let byline;
 
-	let byline = author;
+	// try and extract visible children
+	byline = extractAuthor(selection.find('*:not(time, :has(*)):visible'));
+	// else fall back on entire selection
+	if(byline.replace(/_+/g, '') === '') byline = extractAuthor(selection);
 
-	// sqush to single line
-	author = author.replace(/(^\s+|\n|\s+$)/g,' ');
 
-	//cleanup
-	author = author.replace(/(^_|^\s*by(:|)\s+|^\s*|_+$|phd)/ig, '');
-	// fix format "author | date"
-	if(author.indexOf('|') !== 0) author = author.split('|')[0];
 
-	let authors = author.split(/\s*and\s*|,\s*|\s*_\s*/);
 
+
+	let authors = byline.split(/\s+and\s+|,\s*|\s*_\s*/);
 	authors = authors.filter((item, i) => {
     	return authors.indexOf(item) == i;
 	})
 	// items containing these words
 	// are usually bios about authors
 	.filter((item, i) => {
-    	return !/((^|\s+)(for|a|on|at|am|pm|twitter|updated)(\s+|$)|@|[0-9])/gi.test(item);
+    	return !/((^|\s+)(for|a|on|at|am|pm|of|twitter|updated|comments|published|\|)(\s+|$)|@|[0-9])/gi.test(item);
 	})
 	// remove empty names
 	.filter(n => n !== '');
@@ -83,10 +99,16 @@ let parse = () => {
 	})
 
 	
+	
+	let sourceSelectors = [
+		'[id*=logo] img',
+		'[class*=logo] img',
+		'[class*=logo] a[title]'
+	]
 
 
+	let source = $(sourceSelectors.join(',')).attr('alt') || $(sourceSelectors.join(',')).attr('title');
 
-	let source = $('[id*=logo] img, [class*=logo] img').first().attr('alt');
 	if(!source && $('.logo, #logo').length > 0){
 		source = $('.logo, #logo').text();
 	}
@@ -116,9 +138,8 @@ let parse = () => {
 
 
 	// Extract Date
-	let date = $('time, [class*=date]').first().text() + byline + $('body').text();
-	date = date.match(/([A-Z][A-Za-z]+|[0-9]{1,2})(-|\/|\.\s*|\s+)[0-9]{1,2}(,|)(-|\/|\.|\s+)[0-9]{2,4}/)[0];
-
+	let date = $('time, [class*=date]').first().text();
+	date = date || (byline + $('body').text()).match(/([A-Z][A-Za-z]+|[0-9]{1,2})(-|\/|\.\s*|\s+)([A-Z][A-Za-z]+|[0-9]{1,2})(,|)(-|\/|\.|\s+)[0-9]{2,4}/)[0];
 	date = Date.parse(date).toString('d MMM. yyyy');
 
 
