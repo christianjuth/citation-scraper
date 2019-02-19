@@ -59,7 +59,7 @@ let parse = () => {
 		// sqush to single line
 		out = out.replace(/(^\s+|\n|\s+$)/g,' ');
 		//cleanup
-		out = out.replace(/(^_|^\s*by(:|)\s+|^\s*|_+$|phd)/ig, '');
+		out = out.replace(/(^_|^\s*by(:|)(\s+|_)|^\s*|_+$|phd)/ig, '');
 		return out;
 	}
 	
@@ -99,15 +99,18 @@ let parse = () => {
 	})
 
 	
-	
+	let source = '';
 	let sourceSelectors = [
 		'[id*=logo] img',
 		'[class*=logo] img',
-		'[class*=logo] a[title]'
-	]
+		'[class*=brand]',
+		'[class*=logo] a[title]',
+		'[class*=logo]'
+	];
 
-
-	let source = $(sourceSelectors.join(',')).attr('alt') || $(sourceSelectors.join(',')).attr('title');
+	sourceSelectors.forEach((sel) => {
+		if(!source) source = $(sel).attr('alt') || $(sel).attr('title');
+	});
 
 	if(!source && $('.logo, #logo').length > 0){
 		source = $('.logo, #logo').text();
@@ -116,6 +119,8 @@ let parse = () => {
 	if(!source){
 		source = location.host.replace(/\.[^\.]+$/,'').split('.').pop();
 	}
+
+	source = source.replace(/\.(com)$/, '');
 
 
 
@@ -132,14 +137,15 @@ let parse = () => {
 	titleSelectors.forEach(selector => {
 		if(title == '') title = $(selector).first().text();
 	});
+	title = title.replace(/(^\s+|\s+$)/g,'');
 
 
 
 
 
 	// Extract Date
-	let date = $('time, [class*=date]').first().text();
-	date = date || (byline + $('body').text()).match(/([A-Z][A-Za-z]+|[0-9]{1,2})(-|\/|\.\s*|\s+)([A-Z][A-Za-z]+|[0-9]{1,2})(,|)(-|\/|\.|\s+)[0-9]{2,4}/)[0];
+	let date = $(selectors.join(',')).text() + $('time, [class*="date"]').text() + $('body').text();
+	date = date.match(/(([A-Z]([A-Z]+|[a-z]+)|[0-9]{1,2})(-|\/|\.\s*|\s+)([0-9]{1,2})|([0-9]{1,2})(-|\/|\.\s*|\s+)([A-Z]([A-Z]+|[a-z]+)|[0-9]{1,2}))(,|)(-|\/|\.|\s+)[0-9]{2,4}/)[0];
 	date = Date.parse(date).toString('d MMM. yyyy');
 
 
@@ -159,9 +165,15 @@ let parse = () => {
 
 }
 
-chrome.runtime.onMessage.addListener(
-	function(req, sender, sendResponse) {
-		// sender.tab
-		if (req.command == "parse")
-			sendResponse(parse());
-	});
+
+if(typeof chrome !== 'undefined'){
+	chrome.runtime.onMessage.addListener(
+		function(req, sender, sendResponse) {
+			// sender.tab
+			if (req.command == "parse"){
+				let data = parse();
+				console.log(JSON.stringify(data));
+				sendResponse(data);
+			}
+		});
+}

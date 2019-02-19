@@ -1,13 +1,16 @@
 {
-  "name": "flatcal",
+  "name": "citation-scraper",
   "version": "1.0.0",
   "description": "Don't you just hate writing papers?",
   "main": "index.js",
-  "dependencies": {},
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
     "cli-confetti": "^1.0.8",
     "colors": "^1.3.3",
     "grunt": "^1.0.3",
+    "grunt-browserify": "^5.3.0",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-compress": "^1.4.3",
     "grunt-contrib-copy": "^1.0.0",
@@ -19,16 +22,19 @@
     "grunt-eslint": "^21.0.0",
     "grunt-jslint": "^1.1.15",
     "grunt-notify": "^0.4.5",
+    "grunt-rollup": "^3.3.0",
     "grunt-sass-lint": "^0.2.4",
     "husky": "^1.3.1",
     "jquery": "^3.3.1",
-    "jsdom": "^13.2.0"
+    "jsdom": "^13.2.0",
+    "phantom": "^6.0.3",
+    "rollup-plugin-babel": "^3.0.2"
   },
   "scripts": {
     "start": "./node_modules/grunt/bin/grunt",
     "build": "./node_modules/grunt/bin/grunt build",
     "lint": "./node_modules/grunt/bin/grunt lint",
-    "test": "node ./test/test.js && npm run lint",
+    "test": "./node_modules/phantomjs-prebuilt/bin/phantomjs test/test.js",
     "package": "./node_modules/grunt/bin/grunt package",
     "confetti": "node ./node_modules/cli-confetti/bin/cli-confetti"
   },
@@ -46,5 +52,8 @@
   "bugs": {
     "url": "https://github.com/christianjuth/citation-scraper/issues"
   },
-  "homepage": "https://github.com/christianjuth/citation-scraper#readme"
+  "homepage": "https://github.com/christianjuth/citation-scraper#readme",
+  "dependencies": {
+    "slimerjs": "^1.0.0"
+  }
 }

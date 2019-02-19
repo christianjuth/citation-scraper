@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+  let babel = require('rollup-plugin-babel');
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -37,6 +39,31 @@ module.exports = function(grunt) {
           ],
           dest: 'dist'
         }]
+      }
+    },
+
+    rollup: {
+      options: {
+        sourceMap: 'inline',
+        format: 'cjs',
+        plugins: function () {
+          return [
+            babel({
+              babelrc: false,
+              exclude: './node_modules/**',
+              plugins: ["external-helpers"],
+              "presets": [
+                ["env", {
+                  "modules": false
+                }]
+              ]
+            }),
+          ];
+        },
+      },
+      dist: {
+        dest: `dist/assets/js/parser.js`,
+        src: `src/assets/js/parser.js`
       }
     },
 
@@ -141,12 +168,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-sass-lint');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-rollup');
 
 
   // Default task(s).
   grunt.registerTask('default', ['notify_hooks:errors', 'build', 'watch']);
-  grunt.registerTask('build', ['clean', 'copy', 'dart-sass']);
+  grunt.registerTask('build', ['clean', 'copy', 'dart-sass', 'rollup']);
   grunt.registerTask('lint', ['eslint', 'sasslint']);
+  grunt.registerTask('js', ['rollup']);
   grunt.registerTask('package', ['build', 'uglify', 'htmlmin', 'compress']);
 
 };
