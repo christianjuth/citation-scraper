@@ -5,8 +5,9 @@ let parse = () => {
 	// The earlier a selector is in the
 	// array the higher the preference.
 	let selectors = [
-		'#owner-name a', // youtube
+		// '#owner-name a', // youtube
 		'[rel="author"]',
+		'[class*="byline"] a',
 		'a[class*="byline"]:first',
 		'[class*="byline"]:first',
 		'[id*="author"] .name a',
@@ -15,31 +16,20 @@ let parse = () => {
 		'[class*="author"] .name a',
 		'[class*="author"] .name',
 		'[class*="author"]',
+		'[itemprop*="author"]',
 		'[ng-bind-html*="author"]', // angularjs
 		'[ng-if*="author"]', // angularjs
 		'[class*="Contributor"], [class*="contributor"]',
 		'[href*="author"]',
-		'[href*="editor"]',
+		'[href*="editor"]'
 	];
 
 	let bans = [
-		'[class*=title]' // job title
-	]
-
-	let selection;
-	selectors.forEach(selector => {
-		let $selector = $(selector+':visible').not(bans.join(','));
-		if(!selection && $selector.length > 0)
-			selection = $selector;
-	});
-
-	// if selection fails look for
-	// anything starting with by
-	if(!selection){
-		selection = $('*').filter(function() {
-			return /^by\s+.+$/i.test($(this).text());
-		});
-	}
+		'[class*="title"]', // job title
+		'[class*="channel"]', // job title
+		'[class*="raction"]',
+		'body'
+	];
 
 	let extractAuthor = (sel) => {
 		let out = '',
@@ -52,18 +42,34 @@ let parse = () => {
 			return $(this)[0].getBoundingClientRect().top + $(window)['scrollTop']() < Math.min(...distances) + 500;
 		})
 		.each(function() {
-			let text = $(this).text();
+			// sqush to single line
+			let text = $(this).text().replace(/(^\s+|\n|\s+$)/g,' ');
 			// slip over by
-			out += text+'_';
+			if(text.length < 50)
+				out += text+'_';
 		});
-		// sqush to single line
-		out = out.replace(/(^\s+|\n|\s+$)/g,' ');
+
 		//cleanup
 		out = out.replace(/(^_|^\s*by(:|)(\s+|_)|^\s*|_+$|phd)/ig, '');
 		return out;
 	}
+
+	let selection;
+	selectors.forEach(selector => {
+		let $selector = $(selector+':visible').not(bans.join(','));
+		if(!selection && $selector.length)
+			selection = $selector;
+	});
+
+	// if selection fails look for
+	// anything starting with by
+	if(!selection){
+		selection = $('*').filter(function() {
+			return /^by\s+.+$/i.test($(this).text());
+		});
+	}
 	
-	let byline;
+	let byline = '';
 
 	// try and extract visible children
 	byline = extractAuthor(selection.find('*:not(time, :has(*)):visible'));
@@ -89,38 +95,58 @@ let parse = () => {
 
 	// move last name to front
 	authors = authors.map(name => {
-		let split = name.split(/\s+/).filter(n => n !== '');
+		let split = name.split(/\s+/).map(n => {
+			if(/^([A-Z]|\s)+$/.test(n))
+				return n[0] + n.substr(1).toLowerCase();
+			else
+				return n;
+		}).filter(n => n !== '');
 
 		// if not organization
 		if(!/(^|\s+)(the)(\s+|$)/gi.test(name))
 			split.unshift(split.pop());
 			
 		return split;
-	})
+	});
 
-	
+
+
+
+
 	let source = '';
 	let sourceSelectors = [
-		'[id*=logo] img',
 		'[class*=logo] img',
-		'[class*=brand]',
 		'[class*=logo] a[title]',
-		'[class*=logo]'
+		'[class*=logo]',
 	];
 
 	sourceSelectors.forEach((sel) => {
-		if(!source) source = $(sel).attr('alt') || $(sel).attr('title');
+		let text = $(sel).attr('alt') || $(sel).attr('title');
+		if(!source && !/logo|homepage/i.test(text)){
+			source = text;
+		} 
 	});
-
-	if(!source && $('.logo, #logo').length > 0){
-		source = $('.logo, #logo').text();
-	}
 
 	if(!source){
 		source = location.host.replace(/\.[^\.]+$/,'').split('.').pop();
+		let regex = source.split('').join('(\\s|)');
+		let sourceMatches = $('body').text().match(new RegExp(regex, 'ig'));
+		sourceMatches = sourceMatches.filter(match => {
+			return !/^[A-Z]+$/.test(match);
+		}).sort();
+		source = sourceMatches[0];
 	}
 
-	source = source.replace(/\.(com)$/, '');
+	source = source.replace(/\.(com|org|net)$/, '').replace(/([a-z])([A-Z])/g, '$1 $2');
+
+	source = source.split(/\s+/).map(n => {
+		if(n.length > 2 && /^([A-Z]|\s)+$/.test(n))
+			return n[0] + n.substr(1).toLowerCase();
+		else
+			return n;
+	}).join(' ');
+
+	
 
 
 
@@ -130,7 +156,9 @@ let parse = () => {
 	let titleSelectors = [
 		'h1[id*="title"]',
 		'h1[class*="title"]',
-		'h1'
+		'article h1',
+		'h1',
+		'[class*="headline"]'
 	]
 
 	let title = '';
@@ -144,8 +172,9 @@ let parse = () => {
 
 
 	// Extract Date
-	let date = $(selectors.join(',')).text() + $('time, [class*="date"]').text() + $('body').text();
-	date = date.match(/(([A-Z]([A-Z]+|[a-z]+)|[0-9]{1,2})(-|\/|\.\s*|\s+)([0-9]{1,2})|([0-9]{1,2})(-|\/|\.\s*|\s+)([A-Z]([A-Z]+|[a-z]+)|[0-9]{1,2}))(,|)(-|\/|\.|\s+)[0-9]{2,4}/)[0];
+	let date = $('time, [class*="article"] [class*="date"]').text() + $(selectors.join(',')).text() + $('body').text();
+	date = date.match(/(today\s+[0-9]{1,2}:[0-9]{1,2}(|am|pm)|[0-9]{1,2}\s+hours\s+ago|(([0-9]{1,2}(nd|th|)|((Jan|Feb|Mar|Apr|May|Jun|July|Aug|Sep|Oct|Nov|Dec)[a-z]*))(-|\/|(\.|,|)[ \t]+)){2}[0-9]{2,4})/ig)[0];
+	date = date.replace(/today/i, 'today at');
 	date = Date.parse(date).toString('d MMM. yyyy');
 
 

@@ -10,6 +10,37 @@ page.onError = function(msg, trace) {
 };
 
 
+// extract domain name from a URL
+function sitename( url ) {
+    var result = /^https?:\/\/([^\/]+)/.exec( url );
+    if ( result ) {
+        return( result[1] );
+    } else {
+        return( null );
+    }
+}
+ 
+// add a callback to every request performed on a webpage
+function adblock( page ) {
+    page.onResourceRequested = function ( requestData, networkRequest ) {
+        // pull out site name from URL
+        var site = sitename( requestData.url );
+        if ( ! site )
+            return;
+ 
+        // abort requests for particular domains
+        if (
+            ( /\.doubleclick\./.test( site ) ) ||
+            ( /\.pubmatic\.com$/.test( site ) )
+        ) {
+            networkRequest.abort();
+            return;
+        }
+    };
+}
+adblock(page);
+
+
 // strip down version of npm colors
 var styles = {};
 var codes = {
@@ -66,12 +97,15 @@ var compare = function(result, expect) {
 	Object.keys(expect).forEach(function(key) {
 		var strCompare = JSON.stringify(expect[key]) == JSON.stringify(result[key]);
 		match = match && strCompare;
-		if(!strCompare) console.log(key.red);
+		if(!strCompare){
+      console.log(JSON.stringify(result[key]));
+      console.log(key.red);
+    }
 	});
 	return match;
 }
 
-
+var errs = 0;
 var test = function(i) {
 
 	var url = tests[i];
@@ -95,21 +129,24 @@ var test = function(i) {
 
 			if(compare(info, data[url]))
 				console.log('- '.gray+url.green);
-			else
+			else{
+        errs++;
 				console.log('- '.gray+url.red);
+      }
 
 			if(tests[i+1]) test(i+1);
 			else {
-				console.log('');
+        var accuracy = ((i+1-errs)/(i+1)*100).toFixed(2);
+				console.log('\nAccuracy: '+accuracy+'%');
 				phantom.exit();
 			}
 
-		}, 2000);
+		}, 3000);
 
 			
 	});
 }
 
-console.log("\nTestring Articles:".bold.underline);
+console.log("\nTesting Articles:".bold.underline);
 test(0);
 

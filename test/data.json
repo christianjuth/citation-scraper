@@ -12,8 +12,7 @@
     ],
     "date": "13 Feb. 2019",
     "source": "The Wall Street Journal",
-    "title": "Judge Rules Paul Manafort Lied in Violation of Plea Deal",
-    "url": "https://www.wsj.com/articles/judge-rules-paul-manafort-made-false-statements-in-violation-of-plea-agreement-11550101738"
+    "title": "Judge Rules Paul Manafort Lied in Violation of Plea Deal"
   },
   "https://buffalonews.com/2019/02/16/great-lakes-brewing-news-publisher-will-resign-after-articles-backlash/": {
     "authors": [
@@ -24,8 +23,7 @@
     ],
     "date": "16 Feb. 2019",
     "title": "Great Lakes Brewing News publisher will resign after article's backlash",
-    "source": "logo",
-    "url": "https://buffalonews.com/2019/02/16/great-lakes-brewing-news-publisher-will-resign-after-articles-backlash/"
+    "source": "Buffalo News"
   },
   "https://www.cheatsheet.com/entertainment/why-is-fox-news-afraid-to-run-an-anti-nazi-ad-on-hannity.html/": {
     "authors": [
@@ -36,20 +34,7 @@
     ],
     "date": "15 Feb. 2019",
     "title": "Why Is Fox News Afraid to Run an Anti-Nazi Ad on ‘Hannity’?",
-    "source": "cheatsheet",
-    "url": "https://www.cheatsheet.com/entertainment/why-is-fox-news-afraid-to-run-an-anti-nazi-ad-on-hannity.html/"
-  },
-  "https://cointelegraph.com/news/market-overly-focused-on-ethereums-constantinople-hard-fork-says-report": {
-    "authors": [
-      [
-        "Alexandre",
-        "Ana"
-      ]
-    ],
-    "date": "6 Feb. 2019",
-    "title": "Market Overly-Focused on Ethereum’s Constantinople Hard Fork, Says Report",
-    "source": "Cointelegraph",
-    "url": "https://cointelegraph.com/news/market-overly-focused-on-ethereums-constantinople-hard-fork-says-report"
+    "source": "Cheat Sheet"
   },
   "https://thehill.com/policy/national-security/398902-gop-lawmakers-introduce-impeachment-resolution-against-rosenstein": {
     "authors": [
@@ -60,8 +45,7 @@
     ],
     "date": "25 Jul. 2018",
     "title": "GOP lawmakers introduce articles of impeachment against Rosenstein",
-    "source": "TheHill",
-    "url": "https://thehill.com/policy/national-security/398902-gop-lawmakers-introduce-impeachment-resolution-against-rosenstein"
+    "source": "The Hill"
   },
   "https://www.nature.com/articles/d41586-019-00007-1": {
     "authors": [
@@ -72,8 +56,7 @@
     ],
     "date": "9 Jan. 2019",
     "title": "Earth’s magnetic field is acting up and geologists don’t know why",
-    "source": "Nature",
-    "url": "https://www.nature.com/articles/d41586-019-00007-1"
+    "source": "Nature"
   },
   "https://www.theplayerstribune.com/en-us/articles/jalen-hurts-thank-you-alabama": {
     "authors": [
@@ -84,8 +67,249 @@
     ],
     "date": "16 Jan. 2019",
     "title": "To My Alabama Family",
-    "source": "The Players’ Tribune",
-    "access": "18 Feb. 2019",
-    "url": "https://www.theplayerstribune.com/en-us/articles/jalen-hurts-thank-you-alabama"
+    "source": "The Players’ Tribune"
+  },
+  "https://www.oakpark.com/News/Articles/2-17-2019/West-Suburban-Medical-Center's-parent-company-closes-nearby-hospital/": {
+    "authors": [
+      [
+        "Romain",
+        "Michael"
+      ]
+    ],
+    "date": "17 Feb. 2019",
+    "title": "West Sub's new owner proposes Westlake closure",
+    "source": "Oak Park"
+  },
+  "https://www.ledgertranscript.com/Dublin-budget-hearing-23497342": {
+    "authors": [
+      [
+        "Handy",
+        "Nicholas"
+      ]
+    ],
+    "date": "18 Feb. 2019",
+    "title": "Dublin budget committee doesn’t recommend seven articles",
+    "source": "ledgertranscript"
+  },
+  "https://www.lineups.com/articles/2019-nfl-draft-deep-dive-offensive-skill-players/": {
+    "authors": [
+      [
+        "Kyncl",
+        "Jonathan"
+      ]
+    ],
+    "date": "19 Feb. 2019",
+    "title": "2019 NFL Draft Deep Dive: Offensive Skill Players",
+    "source": "Lineups"
+  },
+  "https://www.forbes.com/sites/masonsands/2019/02/18/who-article-13-really-hurts-and-helps/": {
+    "authors": [
+      [
+        "Sands",
+        "Mason"
+      ]
+    ],
+    "date": "18 Feb. 2019",
+    "title": "Who Article 13 Really Hurts And Helps",
+    "source": "Forbes"
+  },
+  "https://www.eurogamer.net/articles/2019-02-19-playstation-vita-production-winding-down": {
+    "authors": [
+      [
+        "Phillips",
+        "Tom"
+      ]
+    ],
+    "date": "19 Feb. 2019",
+    "title": "PlayStation Vita production winding down",
+    "source": "Eurogamer"
+  },
+  "https://www.medicalnewstoday.com/articles/324477.php": {
+    "authors": [
+      [
+        "Paddock",
+        "Catharine"
+      ]
+    ],
+    "date": "18 Feb. 2019",
+    "title": "New cell-tracking technique sheds light on breast cancer spread",
+    "source": "Medical News Today"
+  },
+  "https://www.barrons.com/articles/apple-stock-subscription-services-51550251003": {
+    "authors": [
+      [
+        "Fonda",
+        "Daren"
+      ]
+    ],
+    "date": "15 Feb. 2019",
+    "title": "How Subscription Services Could Charge to the Rescue for Apple Stock, According to an Analyst",
+    "source": "Barrons"
+  },
+  "https://www.houstonchronicle.com/news/investigations/article/Southern-Baptist-sexual-abuse-spreads-as-leaders-13588038.php": {
+    "authors": [
+      [
+        "Downen",
+        "Robert"
+      ],
+      [
+        "Olsen",
+        "Lise"
+      ],
+      [
+        "Tedesco",
+        "John"
+      ]
+    ],
+    "date": "10 Feb. 2019",
+    "title": "Abuse of Faith",
+    "source": "Houston Chronicle"
+  },
+  "https://montrealgazette.com/news/local-news/online-articles-not-protected-by-quebec-press-act-appeal-court-rules": {
+    "authors": [
+      [
+        "Bruemmer",
+        "René"
+      ],
+      [
+        "Gazette",
+        "Montreal"
+      ]
+    ],
+    "date": "19 Feb. 2019",
+    "title": "Online articles not protected by Quebec Press Act, appeal court rules",
+    "source": "Montreal Gazette"
+  },
+  "https://www.newyorker.com/magazine/2010/10/04/small-change-malcolm-gladwell": {
+    "authors": [
+      [
+        "Gladwell",
+        "Malcolm"
+      ]
+    ],
+    "date": "4 Oct. 2010",
+    "title": "Small Change",
+    "source": "New Yorker"
+  },
+  "https://variety.com/2019/politics/news/trump-praises-rush-limbaugh-fox-news-figures-1203141023/": {
+    "authors": [
+      [
+        "Johnson",
+        "Ted"
+      ]
+    ],
+    "date": "15 Feb. 2019",
+    "title": "Trump Praises Limbaugh, Fox News Figures, and Says Ann Coulter Has Gone ‘Off the Reservation’",
+    "source": "Variety"
+  },
+  "https://www.irishtimes.com/news/crime-and-law/courts/high-court/naming-denis-o-brien-in-articles-was-not-unfair-jury-told-1.3800625": {
+    "authors": [
+      [
+        "Carolan",
+        "Mary"
+      ]
+    ],
+    "date": "20 Feb. 2019",
+    "title": "Naming Denis O’Brien in articles was not unfair, jury told",
+    "source": "Irish Times"
+  },
+  "https://www.businessoffashion.com/articles/news-analysis/karl-lagerfeld-dies-in-paris-at-85": {
+    "authors": [
+      [
+        "Wilson",
+        "Eric"
+      ]
+    ],
+    "date": "20 Feb. 2019",
+    "title": "Karl Lagerfeld Dies in Paris",
+    "source": "Business of Fashion"
+  },
+  "https://dzone.com/articles/understanding-the-differences-between-unit-tests-a": {
+    "authors": [
+      [
+        "Nordeen",
+        "Kyle"
+      ]
+    ],
+    "date": "29 Dec. 2015",
+    "title": "Understanding the Differences Between Unit Tests and Test Automation",
+    "source": "DZone"
+  },
+  "https://www.wired.com/story/wallaces-giant-bee/": {
+    "authors": [
+      [
+        "Simon",
+        "Matt"
+      ]
+    ],
+    "date": "25 May. 2018",
+    "title": "The Triumphant Rediscovery of the Biggest Bee on Earth",
+    "source": "Wired"
+  },
+  "https://makezine.com/2019/02/18/arduino-v-raspberry-pi-battle-of-the-etitans/": {
+    "authors": [
+      [
+        "Giles",
+        "Gretchen"
+      ]
+    ],
+    "date": "18 Feb. 2019",
+    "title": "Arduino v Raspberry Pi: Battle of the eTitans",
+    "source": "Make"
+  },
+  "https://www.nytimes.com/2012/04/22/opinion/sunday/the-flight-from-conversation.html": {
+    "authors": [
+      [
+        "Turkle",
+        "Sherry"
+      ]
+    ],
+    "date": "21 Apr. 2012",
+    "title": "The Flight From Conversation",
+    "source": "NYTimes"
+  },
+  "https://mashable.com/article/snow-los-angeles-wtf/?utm_campaign=hp-h-1&utm_source=internal&utm_medium=onsite#X8Aq7ZSNduqT": {
+    "authors": [
+      [
+        "Sung",
+        "Morgan"
+      ]
+    ],
+    "date": "21 Feb. 2019",
+    "title": "It snowed in LA and everyone is freaking out",
+    "source": "Mashable"
+  },
+  "https://lifehacker.com/why-we-yawn-and-how-to-stop-it-1832762390": {
+    "authors": [
+      [
+        "Ocampo",
+        "Josh"
+      ]
+    ],
+    "date": "21 Feb. 2019",
+    "title": "Why We Yawn and How to Stop It",
+    "source": "Lifehacker"
+  },
+  "https://www.billboard.com/articles/business/8499494/10-times-ariana-grande-showed-love-for-lgbtq-community": {
+    "authors": [
+      [
+        "Assunção",
+        "Muri"
+      ]
+    ],
+    "date": "21 Feb. 2019",
+    "title": "10 Times Ariana Grande Showed Love for the LGBTQ Community",
+    "source": "Billboard"
+  },
+  "https://www.dogonews.com/2019/2/13/dutch-artist-envisions-transforming-space-trash-into-fiery-shooting-stars": {
+    "authors": [
+      [
+        "Ryan",
+        "Elise"
+      ]
+    ],
+    "date": "13 Feb. 2019",
+    "title": "Dutch Artist Envisions Transforming Space Trash Into Fiery Shooting Stars",
+    "source": "DOGOnews"
   }
 }

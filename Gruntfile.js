@@ -99,6 +99,10 @@ module.exports = function(grunt) {
 
 
     watch: {
+      options: {
+        atBegin: true,
+        interrupt: true
+      },
       main: {
         files: ['src/**/*'],
         tasks: ['build'],
